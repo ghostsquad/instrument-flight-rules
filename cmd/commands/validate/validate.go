@@ -88,7 +88,7 @@ func NewValidateCmd(box packr.Box) *cobra.Command {
 				} else {
 					fmt.Printf("The document is not valid. see errors :\n")
 					for _, desc := range result.Errors() {
-						fmt.Printf("- %s\n", desc)
+						fmt.Printf("- %s\n", desc.String())
 					}
 				}
 			}
