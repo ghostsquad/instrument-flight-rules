@@ -24,28 +24,33 @@ source:
 - name: uri
   # whether this source parameter must be defined by the user
   required: true
+  # Use `schema` to define the value type for this parameter. This uses JSON Schema.
+  # https://json-schema.org/understanding-json-schema/reference/index.html
+  # By default, we assume everything is a string. So this is optional.
+  schema:
+    type: string
   # an example value
   example: git@github.com:concourse/git-resource.git
 - name: branch
+  # `required` is optional, and defaults to `false`.
   required: false
   example: master
   # describe how this source parameter works, and even provide additional examples.
   description: |
     The branch to track. This is optional if the resource is only used in get steps; however, it is required when used in a put step. 
     If unset for get, the repository's default branch is used; usually master but could be different.
-params:
-  get:
-  - name: depth
-    required: false
-    example: 1
-    description: If a positive integer is given, shallow clone the repository using the --depth option.
-  put:
-  - name: repository
-    required: true
-    # this parameter needs a path to something, most likely another resource or task output
-    path_input: true
-    example: source
-    description: The path of the repository to push to the source.
+get:
+- name: depth
+  required: false
+  example: 1
+  description: If a positive integer is given, shallow clone the repository using the --depth option.
+put:
+- name: repository
+  required: true
+  # this parameter needs a path to something, most likely another resource or task output
+  path_input: true
+  example: source
+  description: The path of the repository to push to the source.
 
 outputs:
 # this output is special, in that it should describe the contents of the directory created from a `get`
@@ -57,3 +62,7 @@ outputs:
   description: |
     For committer notification on failed builds. This special file .git/committer which is populated with the email address of the author of the last commit. This can be used together with an email resource like mdomke/concourse-email-resource to notify the committer in an on_failure step.
 ```
+
+## IFRS directory
+
+Organized by git user/org directory, then `<repo>.yaml`. 
