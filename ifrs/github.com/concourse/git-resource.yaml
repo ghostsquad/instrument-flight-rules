@@ -192,7 +192,6 @@ put:
 outputs:
   root:
     description: The cloned repo
-    example_contents:
   paths:
   # if you have specific files that always exist inside the root directory, add additional outputs, with the name being the path to that file. You should exclude the leading `/` in the path
   - name: .git/committer
